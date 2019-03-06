@@ -1,17 +1,17 @@
-const responseFormatter = require('../utils/responseFormatter');
-const logger = require('../utils/logger');
+const responseFormatter = require("../utils/responseFormatter");
+const logger = require("../utils/logger");
 
 module.exports = (error, req, res, next) => {
   if (error.response) {
     // The request was made and the server responded with a status code
     // that falls out of the range of 2xx
     const data = error.response.data;
-    if (data.cod === '429') {
+    if (data.cod === "429") {
       logger.warn(data.message);
       return responseFormatter(
         res,
         503,
-        'The server is busy at the moment, please try again later',
+        "The server is busy at the moment, please try again later",
         null
       );
     }
@@ -34,7 +34,7 @@ module.exports = (error, req, res, next) => {
   return responseFormatter(
     res,
     500,
-    'Something failed, we are investigating!',
+    "Something failed, we are investigating!",
     null
   );
 };
